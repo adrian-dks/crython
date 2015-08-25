@@ -106,7 +106,7 @@ class CronExpression(object):
                 '@minutely': '0 * * * * * *'}
 
     def __init__(self, **kwargs):
-        expression = kwargs.get('expr', '* * * * * * *')
+        expression = self.KEYWORDS.get(kwargs.get('expr'), len(kwargs.get('expr').split(' '))==7 and kwargs.get('expr') or '* * * * * * *')
         expression = self.KEYWORDS.get(expression, expression)
         expression = dict(zip(self.FIELD_NAMES, expression.split()))
         for field, ctor in self.FIELDS.items():
